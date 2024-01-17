@@ -1,104 +1,105 @@
-#include <stdio.h>
-#include <stdlib.h>
-
-typedef struct Node {
+// Insertion in Singly Linked list
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
     int data;
-    struct Node* next;
-} Node;
-
-Node* head = NULL;
-
-void push();
-void append();
-void insert();
+    struct node *next;
+};
+struct node *start=NULL;
+void insert_begin();
+void insert_end();
+void insert_pos();
 void display();
-
-int main() {
-    int choice;
-    while (1) {
-        printf("1. Insert at beginning\n");
-        printf("2. Insert at end\n");
-        printf("3. Insert at position\n");
-        printf("4. Display\n");
-        printf("5. Exit\n");
-        printf("Enter choice: ");
-        scanf("%d", &choice);
-        switch (choice) {
-            case 1:
-                push();
-                break;
-            case 2:
-                append();
-                break;
-            case 3:
-                insert();
-                break;
-            case 4:
-                display();
-                break;
-            default:
-                printf("Exiting the program");
-                return 0;
+int main()
+{
+    int option;
+    do{
+        printf("\n***MAIN MENU***\n1.Insert at beginning\n2.Insert at end\n3.Insert at any position\n4.Display\n5.Exit\n");
+        printf("\nEnter an option to perform the following operations: ");
+        scanf("%d",&option);
+        switch(option)
+        {
+            case 1:insert_begin();
+                   printf("\nElement inserted successfully\n");
+                   break;
+            case 2:insert_end();
+                   printf("\nElement inserted successfully\n");
+                   break;
+            case 3:insert_pos();
+                   printf("\nElement inserted successfully\n");
+                   break;                   
+            case 4:printf("\nElements in the linked list:\n");
+                   display();
+                   break;
+        }
+    }while(option!=5);
+    return 0;
+}
+void insert_begin()
+{
+    struct node *new_node;
+    int num;
+    printf("Enter the data\n");
+    scanf("%d",&num);
+    new_node=(struct node*)malloc(sizeof(struct node));
+    new_node->data=num;
+    new_node->next=start; 
+    start=new_node;   
+}
+void insert_end()
+{
+    struct node *new_node,*ptr;
+    int num;
+    printf("Enter the data\n");
+    scanf("%d",&num);
+    new_node=(struct node*)malloc(sizeof(struct node));
+    new_node->data=num;
+    new_node->next=NULL;
+    ptr=start;
+    while(ptr->next!=NULL)
+    ptr=ptr->next;
+    ptr->next=new_node;
+}
+void insert_pos()
+{
+    struct node *new_node,*ptr,*prev;
+    int num,pos,count=1;
+    printf("Enter the data\n");
+    scanf("%d",&num);
+    printf("Enter the position to be inserted\n");
+    scanf("%d",&pos);
+    new_node=(struct node*)malloc(sizeof(struct node));
+    new_node->data=num;
+    if(pos==1)
+    {
+    new_node->next=start;
+    start=new_node;
+    }
+    else
+    {
+        ptr=start;
+        while(count<pos&&ptr!=NULL)
+        {
+         prev=ptr;
+         ptr=ptr->next;
+         count++;
+        }
+        if(count==pos)
+        {
+         prev->next=new_node;
+         new_node->next=ptr;
         }
     }
 }
-
-void push() {
-    Node* temp = (Node*)malloc(sizeof(Node));
-    int new_data;
-    printf("Enter data in the new node: ");
-    scanf("%d", &new_data);
-    temp->data = new_data;
-    temp->next = head;
-    head = temp;
-}
-
-void append() {
-    Node* temp = (Node*)malloc(sizeof(Node));
-    int new_data;
-    printf("Enter data in the new node: ");
-    scanf("%d", &new_data);
-    temp->data = new_data;
-    temp->next = NULL;
-    if (head == NULL) {
-        head = temp;
-        return;
+void display()
+{
+    struct node *ptr;
+    ptr=start;
+    while(ptr!=NULL)
+    {
+        printf("\t%d",ptr->data);
+        ptr=ptr->next;
     }
-    Node* temp1 = head;
-    while (temp1->next != NULL) {
-        temp1 = temp1->next;
-    }
-    temp1->next = temp;
-}
-
-void insert() {
-    Node* temp = (Node*)malloc(sizeof(Node));
-    int new_data, pos;
-    printf("Enter data in the new node: ");
-    scanf("%d", &new_data);
-    printf("Enter position of the new node: ");
-    scanf("%d", &pos);
-    temp->data = new_data;
-    temp->next = NULL;
-    if (pos == 0) {
-        temp->next = head;
-        head = temp;
-        return;
-    }
-    Node* temp1 = head;
-    while (pos--) {
-        temp1 = temp1->next;
-    }
-    Node* temp2 = temp1->next;
-    temp->next = temp2;
-    temp1->next = temp;
-}
-
-void display() {
-    Node* temp1 = head;
-    while (temp1 != NULL) {
-        printf("%d -> ", temp1->data);
-        temp1 = temp1->next;
-    }
-    printf("NULL\n");
+    printf("\n");
 }

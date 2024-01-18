@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-#define max 4
+#define max 1000
 
 typedef struct {
     int top;
@@ -63,24 +63,4 @@ int minStackGetMin(MinStack* obj) {
 
 void minStackFree(MinStack* obj) {
     free(obj);
-}
-
-int main() {
-    MinStack* obj = minStackCreate();
-
-    minStackPush(obj, 3);
-    minStackPush(obj, 5);
-    minStackPush(obj, 2);
-    minStackPush(obj, 1);
-
-    printf("Min: %d\n", minStackGetMin(obj));
-
-    minStackPop(obj);
-    printf("Top: %d\n", minStackTop(obj));
-
-    minStackPop(obj);
-    printf("Min: %d\n", minStackGetMin(obj));
-    minStackFree(obj);
-
-    return 0;
 }

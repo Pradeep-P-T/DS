@@ -1,7 +1,8 @@
 // Queue Implementation using linked list
+
 #include<stdio.h>
 #include<stdlib.h>
-struct node 
+struct node
 {
   int data;
   struct node *next;
@@ -28,7 +29,7 @@ int main()
         }
     }
     while(option!=4);
-    return 0; 
+    return 0;
 }
 void enqueue()
 {
@@ -38,8 +39,8 @@ void enqueue()
     scanf("%d",&num);
     new_node=(struct node*)malloc(sizeof(struct node));
     new_node->data=num;
-    new_node->next=start; 
-    start=new_node; 
+    new_node->next=start;
+    start=new_node;
 }
 void dequeue()
 {
@@ -49,6 +50,12 @@ void dequeue()
   {
   printf("Stack is empty\n");
   exit(0);
+  }
+  else if(start->next==NULL)
+  {
+    start=start->next;
+    printf("\nElement popped from the stack is: %d\n",ptr->data);
+    free(ptr);
   }
   else
   {
@@ -64,7 +71,7 @@ void dequeue()
 }
 void display()
 {
-  
+
     struct node *ptr;
     ptr=start;
     while(ptr!=NULL)

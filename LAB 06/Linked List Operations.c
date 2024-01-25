@@ -10,13 +10,12 @@ struct node
 struct node *s1=NULL;
 struct node *s2=NULL;
 struct node *start=NULL;
-void create();
-struct node *create2(struct node*);
+struct node *create(struct node*);
 void sort();
 struct node *concatenate(struct node*,struct node*);
 void reverse();
-void display();
-void display2(struct node*);
+void display(struct node*);
+
 int main()
 {
     int option;
@@ -27,13 +26,13 @@ int main()
         scanf("%d",&option);
         switch(option)
         {
-            case 1:create();
+            case 1:start=create(start);
                    printf("\nLinked list created successfully\n");
                    break;                 
             case 2:printf("\nLinked list 1:\n");
-                   s1=create2(s1);
+                   s1=create(s1);
                    printf("\nLinked list 2:\n");
-                   s2=create2(s2);
+                   s2=create(s2);
                    printf("\nLinked lists created successfully\n");
                    break;
             case 3:sort();
@@ -46,45 +45,18 @@ int main()
                    printf("\nLinked list reversed\n");
                    break;
             case 6:printf("\nElements in the linked list\n");
-                   display();
+                   display(start);
                    break;
             case 7:printf("\nElements in the linked list after concatenation:\n");
-                   display2(a);
+                   display(a);
                    break;    
                      
         }
     }while(option!=8);
     return 0;
 }
-void create()
-{
-    struct node *ptr,*new_node;
-    int num;
-    printf("Enter -1 to exit\n");
-    printf("\nEnter the data: ");
-    scanf("%d",&num);
-    while(num!=-1)
-    {
-        new_node=(struct node*)malloc(sizeof(struct node));
-        new_node->data=num;
-        if(start==NULL)
-        {
-            start=new_node;
-            new_node->next=NULL;
-        }
-        else
-        {
-            ptr=start;
-            while(ptr->next!=NULL)
-            ptr=ptr->next;
-            ptr->next=new_node;
-            new_node->next=NULL;
-        }
-        printf("Enter the data: ");
-        scanf("%d",&num);
-    }
-}
-struct node * create2(struct node *start)
+
+struct node * create(struct node *start)
 {
     struct node *ptr,*new_node;
     int num;
@@ -113,6 +85,7 @@ struct node * create2(struct node *start)
     }
     return start;
 }
+
 void sort()
 {
     struct node *i,*j;
@@ -130,6 +103,7 @@ void sort()
         }
     }
 }
+
 struct node *concatenate(struct node *t1,struct node *t2)
 {
     struct node *ptr;
@@ -141,6 +115,7 @@ struct node *concatenate(struct node *t1,struct node *t2)
 ptr->next=t2;
 return t1;
 }
+
 void reverse()
 {
   struct node *prev=NULL;
@@ -155,19 +130,8 @@ void reverse()
   }
   start=prev;    
 }
-void display()
-{
-    struct node *ptr;
-    ptr=start;
-    while(ptr!=NULL)
-    {
-        printf("\t%d",ptr->data);
-        ptr=ptr->next;
-    }
-    printf("\n");
 
-}
-void display2(struct node *p)
+void display(struct node *p)
 {
     struct node *ptr;
     ptr=p;
